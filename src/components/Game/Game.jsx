@@ -12,9 +12,11 @@ function Game() {
   const initialGameState = [...Array(Number(selectedGameOptions.players))].map(
     (_, index) => {
       return {
+        number: index + 1,
         score: 0,
         turn: index === 0 ? true : false,
         time: index === 0 ? "12:00" : null,
+        result: null,
       };
     }
   );
@@ -28,11 +30,10 @@ function Game() {
       <Board
         gameState={gameState}
         setGameState={setGameState}
-        gameComplete={gameComplete}
         setGameComplete={setGameComplete}
       />
       <Players gameState={gameState} />
-      {gameComplete && <Results />}
+      {gameComplete && <Results gameState={gameState} />}
     </>
   );
 }

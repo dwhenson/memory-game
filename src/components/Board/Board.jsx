@@ -6,14 +6,16 @@ import { GameOptionsContext } from "../GameOptionsProvider";
 
 import { tokens } from "../../data/tokens";
 
-function Board({ gameState, setGameState, gameComplete, setGameComplete }) {
+function Board({ gameState, setGameState, setGameComplete }) {
   const { selectedGameOptions } = React.useContext(GameOptionsContext);
   const [selection, setSelection] = React.useState(null);
-  const tokenRef = useRef(null);
+  const [board, setBoard] = React.useState(() =>
+    tokens
+      .slice(0, Math.pow(selectedGameOptions.grid, 2) / 2)
+      .flatMap((token) => [token, token])
+      .map((token) => ({ ...token, id: crypto.randomUUID() }))
+  );
 
-  const tokensToRender = tokens[selectedGameOptions.theme]
-    .flat()
-    .slice(0, Math.pow(selectedGameOptions.grid, 2));
   const currentPlayerIndex = gameState.findIndex((player) => player.turn);
 
   function updateTurn() {
@@ -52,37 +54,54 @@ function Board({ gameState, setGameState, gameComplete, setGameComplete }) {
     );
   }
 
-  // FIXME - Can you get this out the DOM?
-  React.useEffect(() => {
-    const buttons = [...document.querySelectorAll("#board button")];
-    const isComplete = buttons.every((button) =>
-      button.hasAttribute("disabled")
+  function toggleSelection(id) {
+    setBoard(
+      board.map((token) => {
+        if (token.id !== id) {
+          return token;
+        }
+
+        return {
+          ...token,
+          status: token.status === "hidden" ? "shown" : "hidden",
+        };
+      })
     );
-    setGameComplete(() => isComplete);
-  }, [selection, setGameComplete]);
+  }
+
+  React.useEffect(() => {
+    if (board.every((token) => token.status !== "hidden")) {
+      setGameComplete(true);
+    }
+  }, [board, setGameComplete]);
 
   function handleButtonClick(event) {
     if (!selection) {
       setSelection(event.target);
-      event.target.setAttribute("disabled", true);
-      tokenRef.current = event.target;
+      toggleSelection(event.target.id);
     } else if (event.target.value === selection.value) {
-      event.target.setAttribute("disabled", true);
+      toggleSelection(event.target.id);
       updateScore();
       updateTurn();
       setSelection(null);
     } else {
+      toggleSelection(selection.id);
       updateTurn();
-      tokenRef.current.removeAttribute("disabled");
       setSelection(null);
     }
   }
 
   return (
     <div id="board">
-      {tokensToRender.map((token, index) => (
-        <Button key={index} value={token} action={handleButtonClick}>
-          {token}
+      {board.map((token) => (
+        <Button
+          key={token.id}
+          id={token.id}
+          value={token.number}
+          action={handleButtonClick}
+          disabled={token.status === "shown" ? true : false}
+        >
+          {[token[selectedGameOptions.theme]]}
         </Button>
       ))}
     </div>

@@ -4,7 +4,7 @@ export const GameOptionsContext = React.createContext();
 
 function GameOptionsProvider({ children }) {
   const defaultOptions = {
-    theme: "icons",
+    theme: "icon",
     players: 1,
     grid: 4,
   };

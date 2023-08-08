@@ -1,0 +1,63 @@
+body {
+  display: grid;
+  place-items: center;
+  background-color: var(--clr-neutral-200);
+  font-family: var(--ff-body);
+  font-size: var(--step-0);
+  font-weight: 400;
+  color: var(--clr-primary-400);
+}
+
+:is(h1, h2, h3) {
+  font-family: var(--ff-headings);
+  letter-spacing: 0.1px;
+  color: var(--clr-primary-400);
+}
+
+h1 {
+  font-size: var(--step-3);
+}
+
+h2 {
+  font-size: var(--step-2);
+}
+
+h3 {
+  font-size: var(--step-1);
+}
+
+fieldset {
+  padding: 0;
+  border: 0;
+}
+
+legend {
+  padding: 0;
+  border: 0;
+}
+
+button {
+  all: unset;
+}
+
+:focus-visible {
+  opacity: 1;
+  outline: 2px dashed var(--clr-primary-300);
+  outline-offset: 4px;
+}
+
+:focus:not(:focus-visible) {
+  outline: transparent;
+}
+
+/* Utilities */
+
+.visuallyHidden:not(:focus):not(:active) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+}

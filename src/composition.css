@@ -1,0 +1,75 @@
+/* Align-content in center */
+
+#root {
+  display: grid;
+  grid-template-columns:
+    minmax(1rem, 1fr)
+    minmax(320px, 1000px)
+    minmax(1rem, 1fr);
+}
+
+#root > * {
+  grid-column: 2;
+}
+
+/* https://every-layout.dev/layouts/stack/ */
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.stack > * {
+  margin-block-start: 0;
+}
+
+.stack > * + * {
+  margin-block-start: var(--bespoke-space, var(--space-m));
+}
+
+/* https://every-layout.dev/layouts/sidebar/ */
+
+.withSideBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bespoke-gap, var(--space-s));
+}
+
+.withSideBar > :first-child {
+  flex-grow: 1;
+}
+
+.withSideBar > :last-child {
+  flex-basis: 0;
+  flex-grow: 999;
+  min-inline-size: var(--max-size, 60%);
+}
+
+/* https://every-layout.dev/layouts/switcher */
+
+.switcher {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-s);
+}
+
+.switcher > * {
+  flex-basis: calc((30rem - 100%) * 999);
+  flex-grow: 1;
+}
+
+.switcher > :nth-last-child(n + 4),
+.switcher > :nth-last-child(n + 4) ~ * {
+  flex-basis: 100%;
+}
+
+/* https://every-layout.dev/layouts/box/ */
+
+.box {
+  padding: var(--padding, var(--space-m));
+  border: var(--border, 1px) solid var(--bg, currentColor);
+  border-radius: var(--radius, var(--space-xs));
+  background-color: var(--bg, var(--clr-neutral-100));
+  color: var(--fg, var(--clr-primary-400));
+}

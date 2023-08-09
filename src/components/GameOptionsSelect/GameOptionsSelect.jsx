@@ -13,16 +13,18 @@ function GameOptionsSelect() {
 
   const { setIsPlaying } = React.useContext(GamePlayingContext);
 
+  function createBoard() {}
+
   return (
     <form>
       {allGameOptions.map((option) =>
-        Object.entries(option).map(([title, values]) => (
-          <fieldset key={title}>
+        Object.entries(option).map(([title, values], optionIndex) => (
+          <fieldset key={`${title}-${optionIndex}`}>
             <legend>Select {title}</legend>
-            {values.map((value, index) => (
+            {values.map((value, valueIndex) => (
               <>
                 <input
-                  key={index}
+                  key={`${title}-${valueIndex}`}
                   type="radio"
                   name={title}
                   id={value}
@@ -35,6 +37,7 @@ function GameOptionsSelect() {
                     });
                   }}
                 />
+
                 <label htmlFor={value}>{value}</label>
               </>
             ))}

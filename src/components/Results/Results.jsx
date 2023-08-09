@@ -1,27 +1,40 @@
 function Results({ gameState }) {
-  /*
-  TODO
-  Check high score is equal for ties etc
-  assign result to be winner / tied / null
-  render results in order
-  */
+  const orderedResults = [...gameState]
+    .sort((a, b) => a.score - b.score)
+    .reverse();
 
-  const results = [...gameState].sort((a, b) => a.score - b.score).reverse();
-  console.log(results);
   return (
-    <ul>
-      {results.length === 1 && (
-        <li>
-          Time Elapsed: {results[0].time} Moves Taken: {results[0].score}
-        </li>
+    <div>
+      {orderedResults.length === 1 && (
+        <>
+          <h2>You did it!</h2>
+          <p>Game over! Here's how you got on...</p>
+          <ul>
+            <li>
+              Time Elapsed: {orderedResults[0].time} Moves Taken:{" "}
+              {orderedResults[0].score}
+            </li>
+          </ul>
+        </>
       )}
-      {results.length > 1 &&
-        results.map((player, index) => (
-          <li key={index}>
-            Player {player.number}, {results[index].score} Pairs
-          </li>
-        ))}
-    </ul>
+      {orderedResults.length > 1 && (
+        <>
+          {orderedResults[0].score > orderedResults[1].score ? (
+            <h2>Player ${orderedResults[0].number} wins!</h2>
+          ) : (
+            <h2>It's a tie!</h2>
+          )}
+          <p>Game over! Here's the results...</p>
+          <ul>
+            {orderedResults.map((player, index) => (
+              <li key={index}>
+                Player {player.number}, {orderedResults[index].score} Pairs
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+    </div>
   );
 }
 

@@ -1,9 +1,8 @@
 import React from "react";
-import { useRef } from "react";
 
 import Button from "../Button";
 import { GameOptionsContext } from "../GameOptionsProvider";
-
+import { shuffleArray } from "../../utils/shuffleArray";
 import { tokens } from "../../data/tokens";
 
 function Board({ gameState, setGameState, setGameComplete }) {

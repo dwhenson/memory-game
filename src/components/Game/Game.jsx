@@ -7,22 +7,32 @@ import Results from "../Results";
 
 import { GameOptionsContext } from "../GameOptionsProvider";
 
+import { shuffleArray } from "../../utils/shuffleArray";
+import { tokens } from "../../data/tokens";
+
 function Game() {
   const { selectedGameOptions } = React.useContext(GameOptionsContext);
+  const [seconds, setSeconds] = React.useState(0);
   const initialGameState = [...Array(Number(selectedGameOptions.players))].map(
     (_, index) => {
       return {
         number: index + 1,
         score: 0,
         turn: index === 0 ? true : false,
-        time: index === 0 ? "12:00" : null,
         winner: false,
       };
     }
   );
+  const initialBoard = shuffleArray(
+    tokens
+      .slice(0, Math.pow(selectedGameOptions.grid, 2) / 2)
+      .flatMap((token) => [token, token])
+      .map((token) => ({ ...token, id: crypto.randomUUID() }))
+  );
 
   const [gameState, setGameState] = React.useState(initialGameState);
   const [gameComplete, setGameComplete] = React.useState(false);
+  const [board, setBoard] = React.useState(initialBoard);
 
   React.useEffect(() => {
     const highScore = gameState.reduce((acc, cur) => {
@@ -40,16 +50,27 @@ function Game() {
     );
   }, [gameComplete]);
 
+  React.useEffect(() => {
+    if (!gameComplete) {
+      const interval = setInterval(() => {
+        setSeconds((seconds) => seconds + 1);
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [gameComplete]);
+
   return (
     <>
-      <Header setGameComplete={setGameComplete} />
+      <Header initialBoard={initialBoard} setBoard={setBoard} />
       <Board
+        board={board}
+        setBoard={setBoard}
         gameState={gameState}
         setGameState={setGameState}
         setGameComplete={setGameComplete}
       />
-      <Players gameState={gameState} />
-      {gameComplete && <Results gameState={gameState} />}
+      <Players gameState={gameState} seconds={seconds} />
+      {gameComplete && <Results gameState={gameState} seconds={seconds} />}
     </>
   );
 }

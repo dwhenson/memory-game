@@ -1,7 +1,18 @@
-function Results({ gameState }) {
+function Results({ gameState, seconds }) {
   const orderedResults = [...gameState]
     .sort((a, b) => a.score - b.score)
     .reverse();
+
+  function secondsToTime(secondsElapsed) {
+    const minutes = Math.floor((secondsElapsed % 3600) / 60)
+      .toString()
+      .padStart(2, "0");
+    const seconds = Math.floor(secondsElapsed % 60)
+      .toString()
+      .padStart(2, "0");
+
+    return `${minutes}:${seconds}`;
+  }
 
   return (
     <div>
@@ -11,7 +22,7 @@ function Results({ gameState }) {
           <p>Game over! Here's how you got on...</p>
           <ul>
             <li>
-              Time Elapsed: {orderedResults[0].time} Moves Taken:{" "}
+              Time Elapsed: {secondsToTime(seconds)} Moves Taken:{" "}
               {orderedResults[0].score}
             </li>
           </ul>
@@ -20,7 +31,7 @@ function Results({ gameState }) {
       {orderedResults.length > 1 && (
         <>
           {orderedResults[0].score > orderedResults[1].score ? (
-            <h2>Player ${orderedResults[0].number} wins!</h2>
+            <h2>Player {orderedResults[0].number} wins!</h2>
           ) : (
             <h2>It's a tie!</h2>
           )}

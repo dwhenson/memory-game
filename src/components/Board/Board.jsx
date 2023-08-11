@@ -2,18 +2,10 @@ import React from "react";
 
 import Button from "../Button";
 import { GameOptionsContext } from "../GameOptionsProvider";
-import { shuffleArray } from "../../utils/shuffleArray";
-import { tokens } from "../../data/tokens";
 
-function Board({ gameState, setGameState, setGameComplete }) {
+function Board({ board, setBoard, gameState, setGameState, setGameComplete }) {
   const { selectedGameOptions } = React.useContext(GameOptionsContext);
   const [selection, setSelection] = React.useState(null);
-  const [board, setBoard] = React.useState(() =>
-    tokens
-      .slice(0, Math.pow(selectedGameOptions.grid, 2) / 2)
-      .flatMap((token) => [token, token])
-      .map((token) => ({ ...token, id: crypto.randomUUID() }))
-  );
 
   const currentPlayerIndex = gameState.findIndex((player) => player.turn);
 

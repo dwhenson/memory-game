@@ -1,9 +1,20 @@
-function Players({ gameState }) {
+function Players({ gameState, seconds }) {
+  function secondsToTime(secondsElapsed) {
+    const minutes = Math.floor((secondsElapsed % 3600) / 60)
+      .toString()
+      .padStart(2, "0");
+    const seconds = Math.floor(secondsElapsed % 60)
+      .toString()
+      .padStart(2, "0");
+
+    return `${minutes}:${seconds}`;
+  }
+
   return (
     <ul>
       {gameState.length === 1 && (
         <li>
-          Time: {gameState[0].time} Moves: {gameState[0].score}
+          Time: {secondsToTime(seconds)} Moves: {gameState[0].score}
         </li>
       )}
       {gameState.length > 1 &&

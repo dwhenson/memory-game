@@ -13,8 +13,6 @@ function GameOptionsSelect() {
 
   const { setIsPlaying } = React.useContext(GamePlayingContext);
 
-  function createBoard() {}
-
   return (
     <form>
       {allGameOptions.map((option) =>

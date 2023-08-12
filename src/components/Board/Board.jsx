@@ -60,11 +60,30 @@ function Board({ board, setBoard, gameState, setGameState, setGameComplete }) {
     );
   }
 
+  // TODO add useCallBack hook
+  function completeGame() {
+    setGameComplete(true);
+
+    const highScore = gameState.reduce((acc, cur) => {
+      return cur.score > acc ? cur.score : acc;
+    }, 0);
+
+    setGameState(
+      gameState.map((player) => {
+        if (player.score === highScore) {
+          return { ...player, winner: true };
+        } else {
+          return { ...player, winner: false };
+        }
+      })
+    );
+  }
+
   React.useEffect(() => {
     if (board.every((token) => token.status !== "hidden")) {
-      setGameComplete(true);
+      completeGame();
     }
-  }, [board, setGameComplete]);
+  }, [board, completeGame]);
 
   function handleButtonClick(event) {
     if (!selection) {

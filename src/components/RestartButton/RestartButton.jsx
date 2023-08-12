@@ -2,12 +2,12 @@ import React from "react";
 
 import Button from "../Button";
 
-import { GamePlayingContext } from "../GamePlayingProvider";
+import { OptionsSelectedContext } from "../OptionsSelectedProvider";
 
 function RestartButton() {
-  const { setIsPlaying } = React.useContext(GamePlayingContext);
+  const { setHasSelected } = React.useContext(OptionsSelectedContext);
 
-  return <Button action={() => setIsPlaying(false)}>Restart</Button>;
+  return <Button action={() => setHasSelected(false)}>Restart</Button>;
 }
 
 export default RestartButton;

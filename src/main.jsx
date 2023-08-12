@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import GameOptionsProvider from "./components/GameOptionsProvider";
-import GamePlayingProvider from "./components/GamePlayingProvider";
+import OptionsSelectedProvider from "./components/OptionsSelectedProvider";
 import App from "./components/App/App";
 
 import "./abstracts.css";
@@ -12,9 +12,9 @@ import "./reset.css";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <GameOptionsProvider>
-      <GamePlayingProvider>
+      <OptionsSelectedProvider>
         <App />
-      </GamePlayingProvider>
+      </OptionsSelectedProvider>
     </GameOptionsProvider>
   </React.StrictMode>
 );

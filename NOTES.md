@@ -1,6 +1,5 @@
 TODO
 
-- Add time to single player
 - Include icons rather than emojis?
 - All styles
 - Refactor - helper functions
@@ -10,4 +9,6 @@ TODO
 FIXME
 
 - Change 'isPlaying' to 'hasSelected'
+- Move seconds to time to helper function
 - Key issue on render
+- Stop re-render every second

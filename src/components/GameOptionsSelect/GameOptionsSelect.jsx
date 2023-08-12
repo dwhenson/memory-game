@@ -3,15 +3,14 @@ import React from "react";
 import Button from "../Button";
 
 import { GameOptionsContext } from "../GameOptionsProvider";
-import { GamePlayingContext } from "../GamePlayingProvider";
+import { OptionsSelectedContext } from "../OptionsSelectedProvider";
 
 import { allGameOptions } from "../../data/options";
 
 function GameOptionsSelect() {
   const { selectedGameOptions, setSelectedGameOptions } =
     React.useContext(GameOptionsContext);
-
-  const { setIsPlaying } = React.useContext(GamePlayingContext);
+  const { setHasSelected } = React.useContext(OptionsSelectedContext);
 
   return (
     <form>
@@ -45,7 +44,7 @@ function GameOptionsSelect() {
       <Button
         action={(event) => {
           event.preventDefault();
-          setIsPlaying(true);
+          setHasSelected(true);
         }}
       >
         Start Game

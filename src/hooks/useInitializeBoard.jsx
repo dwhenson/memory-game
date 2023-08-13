@@ -15,9 +15,9 @@ export default function useInitializeBoard() {
 
   const [board, setBoard] = React.useState(initialBoard);
 
-  function updateBoard() {
+  function initializeBoard() {
     setBoard(initialBoard);
   }
 
-  return [board, updateBoard];
+  return { boardArray: [board, setBoard], initializeBoard };
 }

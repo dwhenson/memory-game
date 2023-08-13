@@ -15,5 +15,11 @@ export default function useInitializeGame() {
     }
   );
 
-  return React.useState(initialGameState);
+  const [gameState, setGameState] = React.useState(initialGameState);
+
+  function initializeGame() {
+    setGameState(initialGameState);
+  }
+
+  return { gameArray: [gameState, setGameState], initializeGame };
 }

@@ -1,7 +1,5 @@
 import React from "react";
-
 import Button from "../Button";
-
 import { GameOptionsContext } from "../GameOptionsProvider";
 import { OptionsSelectedContext } from "../OptionsSelectedProvider";
 

@@ -6,7 +6,6 @@ import { GameOptionsContext } from "../GameOptionsProvider";
 function Board({ board, setBoard, gameState, setGameState, setGameComplete }) {
   const { selectedGameOptions } = React.useContext(GameOptionsContext);
   const [selection, setSelection] = React.useState(null);
-
   const currentPlayerIndex = gameState.findIndex((player) => player.turn);
 
   function updateTurn() {
@@ -45,7 +44,7 @@ function Board({ board, setBoard, gameState, setGameState, setGameComplete }) {
     );
   }
 
-  function toggleSelection(id) {
+  function toggleTokenSelection(id) {
     setBoard(
       board.map((token) => {
         if (token.id !== id) {
@@ -83,19 +82,19 @@ function Board({ board, setBoard, gameState, setGameState, setGameComplete }) {
     if (board.every((token) => token.status !== "hidden")) {
       completeGame();
     }
-  }, [board, completeGame]);
+  }, [board]);
 
   function handleButtonClick(event) {
     if (!selection) {
       setSelection(event.target);
-      toggleSelection(event.target.id);
+      toggleTokenSelection(event.target.id);
     } else if (event.target.value === selection.value) {
-      toggleSelection(event.target.id);
+      toggleTokenSelection(event.target.id);
       updateScore();
       updateTurn();
       setSelection(null);
     } else {
-      toggleSelection(selection.id);
+      toggleTokenSelection(selection.id);
       updateTurn();
       setSelection(null);
     }

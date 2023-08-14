@@ -1,8 +1,6 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import Header from "../Header";
-import RestartButton from "../RestartButton";
-import NewGameButton from "../NewGameButton";
 import Board from "../Board";
 import Players from "../Players";
 import Results from "../Results";
@@ -12,6 +10,7 @@ import useInitializeGame from "../../hooks/useInitializeGame";
 
 function Game() {
   const [gameComplete, setGameComplete] = React.useState(false);
+  const [seconds, setSeconds] = React.useState(0);
   const {
     boardArray: [board, setBoard],
     initializeBoard,
@@ -20,24 +19,6 @@ function Game() {
     gameArray: [gameState, setGameState],
     initializeGame,
   } = useInitializeGame();
-
-  const [seconds, setSeconds] = React.useState(0);
-
-  React.useEffect(() => {
-    const highScore = gameState.reduce((acc, cur) => {
-      return cur.score > acc ? cur.score : acc;
-    }, 0);
-
-    setGameState(
-      gameState.map((player) => {
-        if (player.score === highScore) {
-          return { ...player, winner: true };
-        } else {
-          return { ...player, winner: false };
-        }
-      })
-    );
-  }, [gameComplete]);
 
   React.useEffect(() => {
     if (!gameComplete) {
@@ -48,19 +29,20 @@ function Game() {
     }
   }, [gameComplete]);
 
-  function restartGame() {
-    initializeBoard();
-    setSeconds(0);
-    setGameComplete(false);
-    initializeGame();
-  }
+  const restartGame = useMemo(() => {
+    function restartGame() {
+      initializeBoard();
+      setSeconds(0);
+      setGameComplete(false);
+      initializeGame();
+    }
+
+    restartGame();
+  }, []);
 
   return (
     <>
-      <Header>
-        <RestartButton />
-        <NewGameButton restartGame={restartGame} />
-      </Header>
+      <Header restartGame={restartGame} />
       <Board
         board={board}
         setBoard={setBoard}

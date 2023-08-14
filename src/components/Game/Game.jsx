@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 
 import Header from "../Header";
 import Board from "../Board";
@@ -29,19 +29,15 @@ function Game() {
     }
   }, [gameComplete]);
 
-  const restartGame = useMemo(() => {
-    function restartGame() {
-      initializeBoard();
-      setSeconds(0);
-      setGameComplete(false);
-      initializeGame();
-    }
-
-    restartGame();
-  }, []);
+  function restartGame() {
+    initializeBoard();
+    setSeconds(0);
+    setGameComplete(false);
+    initializeGame();
+  }
 
   return (
-    <>
+    <div>
       <Header restartGame={restartGame} />
       <Board
         board={board}
@@ -52,7 +48,7 @@ function Game() {
       />
       <Players gameState={gameState} seconds={seconds} />
       {gameComplete && <Results gameState={gameState} seconds={seconds} />}
-    </>
+    </div>
   );
 }
 

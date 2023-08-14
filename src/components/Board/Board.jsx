@@ -59,28 +59,23 @@ function Board({ board, setBoard, gameState, setGameState, setGameComplete }) {
     );
   }
 
-  // TODO add useCallBack hook
-  function completeGame() {
-    setGameComplete(true);
-
-    const highScore = gameState.reduce((acc, cur) => {
-      return cur.score > acc ? cur.score : acc;
-    }, 0);
-
-    setGameState(
-      gameState.map((player) => {
-        if (player.score === highScore) {
-          return { ...player, winner: true };
-        } else {
-          return { ...player, winner: false };
-        }
-      })
-    );
-  }
-
   React.useEffect(() => {
     if (board.every((token) => token.status !== "hidden")) {
-      completeGame();
+      setGameComplete(true);
+
+      const highScore = gameState.reduce((acc, cur) => {
+        return cur.score > acc ? cur.score : acc;
+      }, 0);
+
+      setGameState(
+        gameState.map((player) => {
+          if (player.score === highScore) {
+            return { ...player, winner: true };
+          } else {
+            return { ...player, winner: false };
+          }
+        })
+      );
     }
   }, [board]);
 
@@ -97,6 +92,9 @@ function Board({ board, setBoard, gameState, setGameState, setGameComplete }) {
       toggleTokenSelection(selection.id);
       updateTurn();
       setSelection(null);
+      if (gameState.length === 1) {
+        updateScore();
+      }
     }
   }
 
@@ -117,4 +115,4 @@ function Board({ board, setBoard, gameState, setGameState, setGameComplete }) {
   );
 }
 
-export default Board;
+export default React.memo(Board);

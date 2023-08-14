@@ -1,17 +1,5 @@
 /* Align-content in center */
 
-#root {
-  display: grid;
-  grid-template-columns:
-    minmax(1rem, 1fr)
-    minmax(320px, 1000px)
-    minmax(1rem, 1fr);
-}
-
-#root > * {
-  grid-column: 2;
-}
-
 /* https://every-layout.dev/layouts/stack/ */
 
 .stack {

@@ -1,0 +1,34 @@
+.TokenButton {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: 3rem;
+  min-height: 3rem;
+  font-size: 2.25em;
+}
+
+.TokenButton::after {
+  content: "";
+  position: absolute;
+  opacity: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background-color: var(--clr-primary-400);
+}
+
+.TokenButton:disabled::after {
+  opacity: 0;
+}
+
+.hidden {
+  background-color: var(--clr-primary-400);
+}
+
+.shown {
+  background-color: var(--clr-primary-200);
+}
+
+.found {
+  background-color: var(--clr-accent-100);
+}

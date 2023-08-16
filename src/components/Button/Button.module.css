@@ -1,9 +1,11 @@
 .button {
-  padding: var(--space-s) var(--space-m);
-  border-radius: 0.25rem;
-  background-color: var(--bg, var(--clr-primary-400));
+  padding: var(--padding-block, var(--space-xs))
+    var(--padding-inline, var(--space-m));
+  border-radius: var(--radius, var(--space-m));
+  background-color: var(--bg, var(--clr-accent-100));
   transition: background-color 250ms ease, color 250ms ease;
   font-weight: 700;
+  text-align: center;
   color: var(--fg, var(--clr-neutral-100));
   cursor: pointer;
 }
@@ -11,8 +13,4 @@
 .button:where(:hover):not(:disabled) {
   background-color: var(--hv-bg, var(--clr-primary-300));
   color: var(--hv-fg, var(--clr-neutral-100));
-}
-
-.button:disabled {
-  opacity: 0.5;
 }

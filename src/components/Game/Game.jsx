@@ -1,12 +1,11 @@
 import React from "react";
-
 import Header from "../Header";
 import Board from "../Board";
 import Players from "../Players";
 import Results from "../Results";
-
 import useInitializeBoard from "../../hooks/useInitializeBoard";
 import useInitializeGame from "../../hooks/useInitializeGame";
+import styles from "./Game.module.css";
 
 function Game() {
   const [gameComplete, setGameComplete] = React.useState(false);
@@ -37,7 +36,7 @@ function Game() {
   }
 
   return (
-    <div>
+    <div className={styles.GameWrapper}>
       <Header restartGame={restartGame} />
       <Board
         board={board}
@@ -46,7 +45,11 @@ function Game() {
         setGameState={setGameState}
         setGameComplete={setGameComplete}
       />
-      <Players gameState={gameState} seconds={seconds} />
+      <Players
+        gameState={gameState}
+        seconds={seconds}
+        styles={{ gridColumn: "1/-1" }}
+      />
       {gameComplete && <Results gameState={gameState} seconds={seconds} />}
     </div>
   );

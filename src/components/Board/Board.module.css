@@ -1,0 +1,6 @@
+.BoardWrapper {
+  display: grid;
+  grid-template-columns: repeat(var(--numCols, 5), 1fr);
+  grid-column: 2;
+  gap: var(--space-3xs);
+}

@@ -1,7 +1,7 @@
 import React from "react";
-
-import Button from "../Button";
+import TokenButton from "../TokenButton";
 import { GameOptionsContext } from "../GameOptionsProvider";
+import styles from "./Board.module.css";
 
 function Board({ board, setBoard, gameState, setGameState, setGameComplete }) {
   const { selectedGameOptions } = React.useContext(GameOptionsContext);
@@ -44,7 +44,7 @@ function Board({ board, setBoard, gameState, setGameState, setGameComplete }) {
     );
   }
 
-  function toggleTokenSelection(id) {
+  function changeTokenState(id, state) {
     setBoard(
       board.map((token) => {
         if (token.id !== id) {
@@ -53,11 +53,13 @@ function Board({ board, setBoard, gameState, setGameState, setGameComplete }) {
 
         return {
           ...token,
-          status: token.status === "hidden" ? "shown" : "hidden",
+          status: (token.status = state),
         };
       })
     );
   }
+
+  console.log(board);
 
   React.useEffect(() => {
     if (board.every((token) => token.status !== "hidden")) {
@@ -79,17 +81,25 @@ function Board({ board, setBoard, gameState, setGameState, setGameComplete }) {
     }
   }, [board]);
 
+  async function hideAfterDelay(first, second) {
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    changeTokenState(first, "hidden");
+    changeTokenState(second, "hidden");
+  }
+
   function handleButtonClick(event) {
     if (!selection) {
       setSelection(event.target);
-      toggleTokenSelection(event.target.id);
+      changeTokenState(event.target.id, "shown");
     } else if (event.target.value === selection.value) {
-      toggleTokenSelection(event.target.id);
+      changeTokenState(event.target.id, "found");
+      changeTokenState(selection.id, "found");
       updateScore();
       updateTurn();
       setSelection(null);
     } else {
-      toggleTokenSelection(selection.id);
+      changeTokenState(event.target.id, "shown");
+      hideAfterDelay(selection.id, event.target.id);
       updateTurn();
       setSelection(null);
       if (gameState.length === 1) {
@@ -99,17 +109,26 @@ function Board({ board, setBoard, gameState, setGameState, setGameComplete }) {
   }
 
   return (
-    <div id="board">
+    <div
+      id="board"
+      className={styles.BoardWrapper}
+      style={{ "--numCols": selectedGameOptions.grid }}
+    >
       {board.map((token) => (
-        <Button
+        <TokenButton
           key={token.id}
           id={token.id}
           value={token.number}
           action={handleButtonClick}
-          disabled={token.status === "shown" ? true : false}
+          disabled={token.status != "hidden"}
+          style={{
+            "--padding-inline": "var(--space-xs)",
+            "--radius": "9999px",
+          }}
+          status={token.status}
         >
           {[token[selectedGameOptions.theme]]}
-        </Button>
+        </TokenButton>
       ))}
     </div>
   );

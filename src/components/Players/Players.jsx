@@ -1,3 +1,5 @@
+import styles from "./Players.module.css";
+
 function Players({ gameState, seconds }) {
   function secondsToTime(secondsElapsed) {
     const minutes = Math.floor((secondsElapsed % 3600) / 60)
@@ -11,7 +13,7 @@ function Players({ gameState, seconds }) {
   }
 
   return (
-    <ul>
+    <ul className={styles.PlayerWrapper}>
       {gameState.length === 1 && (
         <li>
           Time: {secondsToTime(seconds)} Moves: {gameState[0].score}

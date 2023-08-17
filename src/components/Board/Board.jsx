@@ -60,8 +60,6 @@ function Board({ board, setBoard, gameState, setGameState, setGameComplete }) {
     );
   }
 
-  console.log(board);
-
   React.useEffect(() => {
     if (board.every((token) => token.status !== "hidden")) {
       setGameComplete(true);

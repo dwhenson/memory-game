@@ -12,17 +12,32 @@ function Players({ gameState, seconds }) {
     return `${minutes}:${seconds}`;
   }
 
+  console.log(gameState);
+
   return (
-    <ul className={styles.PlayerWrapper}>
+    <ul role="list" className={styles.PlayerWrapper}>
       {gameState.length === 1 && (
-        <li>
-          Time: {secondsToTime(seconds)} Moves: {gameState[0].score}
+        <li className={styles.singlePlayer}>
+          <div className={styles.player}>
+            <p>Time:</p>
+            <p style={{ minWidth: "7ch", textAlign: "right" }}>
+              {secondsToTime(seconds)}
+            </p>
+          </div>
+          <div className={styles.player}>
+            <p>Moves: </p>
+            <p>{gameState[0].score}</p>
+          </div>
         </li>
       )}
       {gameState.length > 1 &&
         gameState.map((player, index) => (
-          <li key={index}>
-            Player {player.number}, score: {gameState[index].score}
+          <li
+            key={index}
+            className={`${styles.player} ${player.turn ? styles.current : ""}`}
+          >
+            Player {player.number}{" "}
+            <div className={styles.score}>{gameState[index].score}</div>
           </li>
         ))}
     </ul>

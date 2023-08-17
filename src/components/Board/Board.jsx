@@ -4,6 +4,7 @@ import { GameOptionsContext } from "../GameOptionsProvider";
 import styles from "./Board.module.css";
 
 function Board({ board, setBoard, gameState, setGameState, setGameComplete }) {
+  const boardRef = React.useRef();
   const { selectedGameOptions } = React.useContext(GameOptionsContext);
   const [selection, setSelection] = React.useState(null);
   const currentPlayerIndex = gameState.findIndex((player) => player.turn);
@@ -82,9 +83,11 @@ function Board({ board, setBoard, gameState, setGameState, setGameComplete }) {
   }, [board]);
 
   async function hideAfterDelay(first, second) {
-    await new Promise((resolve) => setTimeout(resolve, 500));
+    boardRef.current.style.pointerEvents = "none";
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     changeTokenState(first, "hidden");
     changeTokenState(second, "hidden");
+    boardRef.current.style.pointerEvents = "revert";
   }
 
   function handleButtonClick(event) {
@@ -111,6 +114,7 @@ function Board({ board, setBoard, gameState, setGameState, setGameComplete }) {
   return (
     <div
       id="board"
+      ref={boardRef}
       className={styles.BoardWrapper}
       style={{ "--numCols": selectedGameOptions.grid }}
     >

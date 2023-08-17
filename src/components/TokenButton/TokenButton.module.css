@@ -2,9 +2,9 @@
   position: relative;
   display: grid;
   place-items: center;
-  min-width: 3rem;
-  min-height: 3rem;
-  font-size: 2.25em;
+  min-width: var(--space-l-xl);
+  min-height: var(--space-l-xl);
+  font-size: var(--step-2);
 }
 
 .TokenButton::after {

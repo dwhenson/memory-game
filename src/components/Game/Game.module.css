@@ -6,6 +6,8 @@
     minmax(320px, 800px)
     minmax(1rem, 1fr);
   place-items: center;
+  gap: var(--space-s);
   width: 100%;
   min-height: 100vh;
+  margin-bottom: var(--space-s);
 }

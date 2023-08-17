@@ -96,7 +96,7 @@ function Board({ board, setBoard, gameState, setGameState, setGameComplete }) {
       changeTokenState(event.target.id, "found");
       changeTokenState(selection.id, "found");
       updateScore();
-      // updateTurn();
+      updateTurn();
       setSelection(null);
     } else {
       changeTokenState(event.target.id, "shown");

@@ -12,8 +12,6 @@ function Players({ gameState, seconds }) {
     return `${minutes}:${seconds}`;
   }
 
-  console.log(gameState);
-
   return (
     <ul role="list" className={styles.PlayerWrapper}>
       {gameState.length === 1 && (

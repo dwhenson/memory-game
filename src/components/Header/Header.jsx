@@ -1,4 +1,3 @@
-import React from "react";
 import RestartButton from "../RestartButton";
 import NewGameButton from "../NewGameButton";
 import styles from "./Header.module.css";

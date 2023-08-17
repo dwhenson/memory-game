@@ -50,7 +50,13 @@ function Game() {
         seconds={seconds}
         styles={{ gridColumn: "1/-1" }}
       />
-      {gameComplete && <Results gameState={gameState} seconds={seconds} />}
+      {gameComplete && (
+        <Results
+          gameState={gameState}
+          seconds={seconds}
+          restartGame={restartGame}
+        />
+      )}
     </div>
   );
 }

@@ -27,7 +27,7 @@ function GameOptionsSelect() {
           Object.entries(option).map(([title, values], optionIndex) => (
             <fieldset
               key={`${title}-${optionIndex}`}
-              className={`stack ${styles.fieldset}`}
+              className={`stack`}
               style={{
                 "--bespoke-space": "var(--space-m)",
                 fontSize: "var(--step-0)",

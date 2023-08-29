@@ -1,9 +1,9 @@
 .AppWrapper {
   display: grid;
   grid-template-columns:
-    minmax(var(--space-s-m), 1fr)
-    minmax(320px, 1440px)
-    minmax(var(--space-s-m), 1fr);
+    minmax(0, 1fr)
+    minmax(320px, 800px)
+    minmax(0, 1fr);
   place-items: center;
   min-height: 100vh;
   font-family: var(--ff-body);

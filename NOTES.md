@@ -1,7 +1,4 @@
-FIXME
+TODO
 
-Duplicate IDs
-
-NOTES
-
-- How fix Key issue on render?
+FIX mobile view issues
+FIX start on click not render

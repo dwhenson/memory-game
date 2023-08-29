@@ -16,9 +16,9 @@
 .inputWrapperOuter {
   position: relative;
   display: flex;
-  flex-wrap: wrap;
+  /* flex-wrap: wrap; */
   justify-content: space-between;
-  gap: var(--space-m);
+  gap: var(--space-s);
 }
 
 .inputWrapperInner {

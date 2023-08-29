@@ -2,9 +2,9 @@
   display: grid;
   grid-template-rows: repeat(3, auto);
   grid-template-columns:
-    minmax(1rem, 1fr)
-    minmax(320px, 800px)
-    minmax(1rem, 1fr);
+    minmax(0, 1fr)
+    minmax(0, 800px)
+    minmax(0, 1fr);
   place-items: center;
   gap: var(--space-s);
   width: 100%;

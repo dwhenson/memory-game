@@ -18,7 +18,7 @@ function Players({ gameState, seconds }) {
         <li className={styles.singlePlayer}>
           <div className={styles.player}>
             <p>Time:</p>
-            <p style={{ minWidth: "7ch", textAlign: "right" }}>
+            <p style={{ minWidth: "6ch", textAlign: "right" }}>
               {secondsToTime(seconds)}
             </p>
           </div>
